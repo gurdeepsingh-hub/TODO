@@ -1,9 +1,9 @@
 function list(){
     this.id;
     this.name;
-    Object.defineProperties(this,id,{
+    Object.defineProperties(this,this.id,{
         get: function(){
-            return id;
+            return this.id;
         },
         set: function(value){
             this.id=value;
@@ -32,23 +32,22 @@ function ListFeatures(){
     }
 
     this.veiwLists= () => {
-        for(key in this.allLists){
-            console.log(this.allLists[key].name);
-        }
+
+            console.table(this.allLists);
     }
 
-    this.veiwList= (id,name) => {
-        for(key in this.allLists){
-            if(this.allLists[key].id == id){
-                console.log();
+    this.ReturnListId =(name)=>{
+        for(let key in this.allLists){
+            if(this.allLists[key].name == name){
+                return this.allLists[key].id;
             }
         }
     }
 
-    this.RenameList= (id,name) =>{
-        for(key in this.allLists){
-            if(this.allLists[key].id == id){
-                this.allLists[key].name=name;
+    this.RenameList= (name, newName) =>{
+        for(let key in this.allLists){
+            if(this.allLists[key].name == name){
+                this.allLists[key].name=newName;
             }
         }
     }
@@ -56,12 +55,14 @@ function ListFeatures(){
 
 //testing
 
-let instance = new ListFeatures();
-let id =0;
-instance.CreateList("today",id++);
-instance.CreateList("Tomorrow",id++);
-instance.veiwLists();
-console.log(instance.allLists);
-instance.RenameList(1,"yesterday");
-instance.veiwLists();
-console.log(instance.allLists);
+export let ListInstance = new ListFeatures();
+
+// let id =0;
+// ListInstance.CreateList("today",id++);
+// ListInstance.CreateList("Tomorrow",id++);
+// ListInstance.veiwLists();
+// console.log(ListInstance.allLists);
+// ListInstance.RenameList("Tomorrow","yesterday");
+// ListInstance.veiwLists();
+// console.log(ListInstance.allLists);
+console.log(ListInstance.ReturnListId("today"));
