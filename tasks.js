@@ -70,12 +70,10 @@ function TaskFeatures(){
         // }
     }
 
-    this.veiwList= (name) => {
-        for(let key in this.AllTasks){
-            if(this.AllTasks[key].id == id){
-                console.log();
-            }
-        }
+    this.veiwList= (id) => {
+        //for(let key in this.AllTasks[id]){
+                console.table(this.AllTasks[id]);
+        //}
     }
 }
 
@@ -129,6 +127,12 @@ function SwitchFn(answer){
             ListInstance.veiwLists();
         break;
         case "4":
+            ListInstance.veiwLists();
+            L_name = read("Enter name of list: ");
+
+            TaskInstance.veiwList(ListInstance.ReturnListId(L_name));
+        break;
+        case "5":
             return 0;
     }
 }
@@ -139,12 +143,14 @@ function SwitchFn(answer){
 const TaskInstance = new TaskFeatures();
 
 let answer;
-while(answer != "4"){
+while(answer != "5"){
 console.log("TO DO");
 console.log("1. To make a new list");
 console.log("2. To make a new task");
 console.log("3. To show all lists");
-console.log("4. To Exit")
+console.log("4. To show all lists");
+
+console.log("5. To Exit")
 answer= read("Enter your choice: ");
 SwitchFn(answer);
 }
