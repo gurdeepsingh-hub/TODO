@@ -1,21 +1,23 @@
 function list(){
     this.id;
     this.name;
-    Object.defineProperties(this,this.id,{
+    Object.defineProperties(this,{
+    ListId:{
         get: function(){
             return this.id;
         },
         set: function(value){
             this.id=value;
         }
-    });
-    Object.defineProperty(this,this.name,{
+    },
+    ListName:{
         get: function(){
             return this.name;
         },
         set: function(value){
             this.name=value;
         }
+    }
     });
 
 }
@@ -26,8 +28,8 @@ function ListFeatures(){
 
     this.CreateList= (name,id)=> {
         this.allLists[id]=new list();
-        this.allLists[id].id = id;
-        this.allLists[id].name = name;
+        this.allLists[id].ListId = id;
+        this.allLists[id].ListName = name;
         //console.log(allLists[id].id , allLists[id].name);
     }
 
@@ -38,16 +40,16 @@ function ListFeatures(){
 
     this.ReturnListId =(name)=>{
         for(let key in this.allLists){
-            if(this.allLists[key].name == name){
-                return this.allLists[key].id;
+            if(this.allLists[key].ListName == name){
+                return this.allLists[key].ListId;
             }
         }
     }
 
     this.RenameList= (name, newName) =>{
         for(let key in this.allLists){
-            if(this.allLists[key].name == name){
-                this.allLists[key].name=newName;
+            if(this.allLists[key].ListName == name){
+                this.allLists[key].ListName = newName;
             }
         }
     }

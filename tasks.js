@@ -51,13 +51,17 @@ function TaskFeatures(){
     this.AllTasks = [[],[]];
 
     this.CreateTask = (listId,name,content) =>{
-        let taskId=this.AllTasks[listId].length();
+
+        let taskId = this.AllTasks[listId] != undefined ? 
+                    this.AllTasks[listId].length:
+                    "0";
         
         this.AllTasks[listId][taskId]= new Task(listId);
         this.AllTasks[listId][taskId].TaskId=taskId;
         this.AllTasks[listId][taskId].TaskName = name;
         this.AllTasks[listId][taskId].TaskContent= content;
     }
+
     this.EditContent = (listId,taskId) =>{
         console.log(this.AllTasks);
         // for( [listId][taskId] in this.AllTasks){
@@ -76,7 +80,7 @@ function TaskFeatures(){
 }
 
 let listId = 0;
-let L_name;
+let L_name,EnterTask= true,L_Id;
 function SwitchFn(answer){
     
     switch(answer){
@@ -86,41 +90,39 @@ function SwitchFn(answer){
                 L_name,
                 listId
                 );
-            TaskInstance.AllTasks[listId]=L_name;
+            TaskInstance.AllTasks[listId];
             listId++;
         break;
 
         case "2":
             L_name=read("Enter the name of list: ");
             if(ListInstance.ReturnListId(L_name) != undefined){
-                let L_Id= ListInstance.ReturnListId(L_name);     
-                while(EnterTask=true){
+                L_Id= ListInstance.ReturnListId(L_name); 
+                EnterTask= true;    
+                while(EnterTask == true){
                 TaskInstance.CreateTask(
                     L_Id,
                     read("Enter name of task: "),
                     read("Enter task content:")
                     );
-                    read("More Tasks to add? Y/N") == 'y'||'Y' ? 
-                        EnterTask=true :
-                        EnterTask=false; 
+                    EnterTask=read("More Tasks to add? Y/N") == "Y" ? true :false; 
                 }
-            }else{
+            } else{
                 ListInstance.CreateList(
                     L_name,
                     listId
                     );
-                TaskInstance.AllTasks[listId]=L_name;
-                listId++;
-                while(EnterTask=true){
+                TaskInstance.AllTasks[listId];//=L_name;
+                EnterTask= true;
+                while(EnterTask == true){
                     TaskInstance.CreateTask(
-                        L_Id,
+                        listId,
                         read("Enter name of task: "),
                         read("Enter task content:")
                         );
-                        read("More Tasks to add? Y/N") == 'y'||'Y' ? 
-                            EnterTask=true :
-                            EnterTask=false; 
+                        EnterTask =read("More Tasks to add? Y/N") == 'Y' ? true :false; 
                     }
+                    listId++;
             }
         break;
         case "3":
@@ -137,15 +139,14 @@ function SwitchFn(answer){
 const TaskInstance = new TaskFeatures();
 
 let answer;
-SwitchFn('1');
 while(answer != "4"){
 console.log("TO DO");
 console.log("1. To make a new list");
 console.log("2. To make a new task");
 console.log("3. To show all lists");
 console.log("4. To Exit")
-//answer= read("Enter your choice: ");
-SwitchFn("1");
+answer= read("Enter your choice: ");
+SwitchFn(answer);
 }
 
 
