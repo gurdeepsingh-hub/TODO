@@ -62,23 +62,26 @@ function TaskFeatures(){
         this.AllTasks[listId][taskId].TaskContent= content;
     }
 
-    this.EditContent = (listId,taskId) =>{
-        console.log(this.AllTasks);
-        // for( [listId][taskId] in this.AllTasks){
-
-        //     console.log(this.AllTasks[listId][taskId]);
-        // }
+    this.EditContent = (listId,taskId,content) =>{
+                this.AllTasks[listId][taskId].TaskContent = content;      
     }
 
     this.veiwList= (id) => {
-        //for(let key in this.AllTasks[id]){
                 console.table(this.AllTasks[id]);
-        //}
+    }
+    this.ReturnTaskId=(listId,T_Name)=>{
+        for(let key in this.AllTasks[listId]){
+            if(this.AllTasks[listId][key].TaskName == T_name){
+                return this.AllTasks[listId][key].TaskId;
+            }
+        }
     }
 }
 
 let listId = 0;
 let L_name,EnterTask= true,L_Id;
+let T_name,T_Id,T_content;
+
 function SwitchFn(answer){
     
     switch(answer){
@@ -133,6 +136,34 @@ function SwitchFn(answer){
             TaskInstance.veiwList(ListInstance.ReturnListId(L_name));
         break;
         case "5":
+            ListInstance.veiwLists();
+            ListInstance.RenameList(
+                read("Enter name of list to rename: "),
+                read("Enter new name: ")
+            );
+        break;
+        case "6":
+            ListInstance.veiwLists();
+            L_name=read("Enter list name: ");
+            L_Id = ListInstance.ReturnListId(L_name);
+
+            TaskInstance.veiwList(L_Id);
+            T_name=read("Enter task name: ");
+            T_Id= TaskInstance.ReturnTaskId(L_id,T_name);
+            T_content= read("Enter task new content: ");
+            TaskInstance.AllTasks[L_Id][T_Id].TaskContent=T_content;
+        break;
+        case "7":
+            ListInstance.veiwLists();
+            L_name=read("Enter list name: ");
+            L_Id = ListInstance.ReturnListId(L_name);
+
+            TaskInstance.veiwList(L_Id);
+            T_name=read("Enter task name: ");
+            T_Id= TaskInstance.ReturnTaskId(L_id,T_name);
+            TaskInstance.AllTasks.splice([L_Id][T_Id],1);
+        break;
+        case "10":
             return 0;
     }
 }
@@ -143,14 +174,18 @@ function SwitchFn(answer){
 const TaskInstance = new TaskFeatures();
 
 let answer;
-while(answer != "5"){
+while(answer != "10"){
 console.log("TO DO");
 console.log("1. To make a new list");
 console.log("2. To make a new task");
 console.log("3. To show all lists");
-console.log("4. To show all lists");
+console.log("4. To show a list");
+console.log("5. To Rename a list");
+console.log("6. To edit task content");
+console.log("7. To delete a task");
+console.log("8. To mark a task");
 
-console.log("5. To Exit")
+console.log("10. To Exit")
 answer= read("Enter your choice: ");
 SwitchFn(answer);
 }
