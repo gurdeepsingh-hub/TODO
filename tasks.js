@@ -8,7 +8,7 @@ function Task(listId){
     this.name;
     this.id;
     this.listId=listId;
-    this.MarkTask= false;
+    this.MarkTask= "Have to do";
     this.content;
 
     Object.defineProperties(this,{
@@ -160,8 +160,18 @@ function SwitchFn(answer){
 
             TaskInstance.veiwList(L_Id);
             T_name=read("Enter task name: ");
-            T_Id= TaskInstance.ReturnTaskId(L_id,T_name);
+            T_Id= TaskInstance.ReturnTaskId(L_Id,T_name);
             TaskInstance.AllTasks.splice([L_Id][T_Id],1);
+        break;
+        case "8":
+            ListInstance.veiwLists();
+            L_name=read("Enter list name: ");
+            L_Id = ListInstance.ReturnListId(L_name);
+
+            TaskInstance.veiwList(L_Id);
+            T_name=read("Enter task name to mark as completed: ");
+            T_Id= TaskInstance.ReturnTaskId(L_Id,T_name);
+            TaskInstance.AllTasks[L_Id][T_Id].TaskMark="Completed";
         break;
         case "10":
             return 0;
