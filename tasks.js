@@ -96,6 +96,7 @@ function SwitchFn(answer){
         break;
 
         case "2":
+            ListInstance.veiwLists();
             L_name=read("Enter the name of list: ");
             if(ListInstance.ReturnListId(L_name) != undefined){
                 L_Id= ListInstance.ReturnListId(L_name); 
@@ -149,7 +150,7 @@ function SwitchFn(answer){
 
             TaskInstance.veiwList(L_Id);
             T_name=read("Enter task name: ");
-            T_Id= TaskInstance.ReturnTaskId(L_id,T_name);
+            T_Id= TaskInstance.ReturnTaskId(L_Id,T_name);
             T_content= read("Enter task new content: ");
             TaskInstance.AllTasks[L_Id][T_Id].TaskContent=T_content;
         break;
@@ -173,7 +174,7 @@ function SwitchFn(answer){
             T_Id= TaskInstance.ReturnTaskId(L_Id,T_name);
             TaskInstance.AllTasks[L_Id][T_Id].TaskMark="Completed";
         break;
-        case "10":
+        case "9":
             return 0;
     }
 }
@@ -184,18 +185,13 @@ function SwitchFn(answer){
 const TaskInstance = new TaskFeatures();
 
 let answer;
-while(answer != "10"){
+while(answer != "9"){
 console.log("TO DO");
-console.log("1. To make a new list");
-console.log("2. To make a new task");
-console.log("3. To show all lists");
-console.log("4. To show a list");
-console.log("5. To Rename a list");
-console.log("6. To edit task content");
-console.log("7. To delete a task");
-console.log("8. To mark a task");
-
-console.log("10. To Exit")
+console.log("1. To make a new list      2. To make a new task");
+console.log("3. To show all lists       4. To show a list");
+console.log("5. To Rename a list        6. To edit task content");
+console.log("7. To delete a task        8. To mark a task");
+console.log("9. To Exit")
 answer= read("Enter your choice: ");
 SwitchFn(answer);
 }
